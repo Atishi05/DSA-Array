@@ -1,0 +1,65 @@
+#1 Remove duplicates from a sorted array
+
+Naive Approach - 
+Time Complexity - O(n)
+Space Complexity - O(n)
+Code->
+class Atishi{ 
+      int remDups(int arr[], int n){
+      int temp[n];
+      temp[0] = arr[0];
+      int res = 1;
+    	for(int i = 1; i < n; i++){
+    		if(arr[res - 1] != arr[i])
+    			arr[res++] = arr[i];
+    	}
+      for(int i = 0; i < res; i++){
+          arr[i] = temp[i];
+      } 
+           	return res;
+    }
+    public static void main(String args[]){ 
+       int arr[] = {10, 20, 20, 30, 30, 30}, n = 6;
+       System.out.println("Before :");
+       for(int i:arr)
+       		System.out.print(i+" ");
+       System.out.println();
+
+       n = remDups(arr, n);
+
+       System.out.println("After :");
+
+       for(int i:arr)
+       		System.out.print(arr[i]+" ");
+    } 
+}
+
+
+Best Approach-
+Time Complexity - O(n)
+Space Complexity - O(1)
+Code->
+class Atishi{ 
+      int remDups(int arr[], int n){
+      int res = 1;
+    	for(int i = 1; i < n; i++){
+    		if(arr[res - 1] != arr[i])
+    			arr[res++] = arr[i];
+    	}
+    	return res;
+    }
+    public static void main(String args[]){ 
+       int arr[] = {10, 20, 20, 30, 30, 30}, n = 6;
+       System.out.println("Before :");
+       for(int i:arr)
+       		System.out.print(i+" ");
+       System.out.println();
+
+       n = remDups(arr, n);
+
+       System.out.println("After :");
+
+       for(int i:arr)
+       		System.out.print(arr[i]+" ");
+    } 
+}
