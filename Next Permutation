@@ -1,0 +1,67 @@
+LINK -> https://leetcode.com/problems/next-permutation/description/
+
+CODE-
+ class Solution {
+    public void nextPermutation(int[] a) {
+        if(a == null || a.length <= 1)  return;
+        int i = a.length-2;
+        while(i >= 0 && a[i] >= a[i+1])
+            i--;
+        if(i >= 0){
+            int j = a.length-1;
+            while(a[j] <= a[i]){
+              j--;
+            }
+            swap(a,i,j);
+        }
+        reverse(a,i+1,a.length-1); 
+    }
+    public void swap(int a[],int i,int j){
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    public void reverse(int a[],int i,int j){
+        while(i < j){
+            swap(a,i++,j--);
+        }
+    }
+}
+
+STRIVER CODE - TIME -> O(3n) & SPACE -> O(1)
+
+class Solution {
+    public void nextPermutation(int[] a) {
+        if(a == null || a.length <= 1)  return;
+        int idx = -1 , n = a.length;
+        for(int i =n-2;i>=0;i--){
+            if(a[i] < a[i+1]){
+              idx = i;
+              break;
+            }
+        }
+        if(idx == -1){
+         reverse(a,0,n-1);
+        }
+        else{
+          for(int i=n-1;i>idx;i--){
+            if(a[i] > a[idx]){
+                swap(a,i,idx);
+                break;
+            }
+          }
+        }
+        if(idx != -1)
+        reverse(a,idx+1,n-1);
+    }
+    public void swap(int a[],int i,int j){
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    public void reverse(int a[],int i,int j){
+        while(i < j){
+            swap(a,i++,j--);
+        }
+    }
+}
