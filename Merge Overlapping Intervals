@@ -1,0 +1,34 @@
+LINK -> https://leetcode.com/problems/merge-intervals/
+
+CODE -> O(N)
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        if(intervals == null || intervals.length == 0)
+          return new int[0][];
+
+        Arrays.sort(intervals,(a,b)->a[0] - b[0]);
+        List<int[]> ans = new ArrayList<>();
+
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+        int i = 1;
+
+        while(i < intervals.length){
+            int s = intervals[i][0];
+            int e = intervals[i][1];
+
+            if(s <= end){ 
+                end = Math.max(end,e); //merge
+            }
+            else{
+                ans.add(new int[]{start,end});  // if not then add new array
+                start = s;   // update start and end
+                end = e;
+            }
+            i++;
+        }
+        ans.add(new int[]{start,end});
+        return  ans.toArray(new int[0][]);
+    }
+}
