@@ -1,0 +1,66 @@
+LINK -> https://leetcode.com/problems/3sum/description/
+
+CODE -> O(NlogN) + O(N2)
+
+class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+
+        for(int i =0;i<nums.length;i++){
+            if(i == 0 ||( i > 0 && nums[i-1] != nums[i])) //skipping duplicate a
+                two_sum(i+1,nums.length-1,nums,0-nums[i]);  // a+b+c = 0 -> b+c = 0 - a
+        }
+        return ans;      
+    }
+    public void two_sum(int i,int j,int nums[],int target){
+        int a = nums[i-1];
+
+        while(i < j){
+            if(nums[i] + nums[j] < target) i++;
+            else if(nums[i] + nums[j] > target) j--;
+            else{
+                List<Integer> list = new ArrayList<>();
+                list.add(a); 
+                list.add(nums[i]); //adding b
+                list.add(nums[j]); // adding c
+                ans.add(list); // adding list to ans
+
+                while(i < j && nums[i] == nums[i+1]) i++;  // skipping duplicate of b
+                while(i < j && nums[j] == nums[j-1]) j--;  // // skipping duplicate of c
+
+                i++; j--; 
+            }
+         }
+    }
+}
+
+#CODE ->
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        
+        List<List<Integer>> res = new LinkedList<>();
+        
+        for(int i=0;i<nums.length-2;i++){
+            if(i == 0 || (i > 0 && nums[i] != nums[i-1])){ //skipping duplicate of a
+                int lo = i + 1, hi = nums.length - 1, sum = 0 - nums[i];
+                
+                while(lo < hi){
+                    if(nums[lo] + nums[hi] == sum){
+                        res.add(Arrays.asList(nums[i],nums[lo],nums[hi]));
+                    
+                    while(lo < hi && nums[lo] == nums[lo+1]) lo++;// skipping duplicate of b
+                    while(lo < hi && nums[hi] == nums[hi-1]) hi--;// skipping duplicate of c
+                    lo++;
+                    hi--;
+                }
+                    else if(nums[lo] + nums[hi] < sum) lo++;
+                    else
+                        hi--;
+            }
+        }
+    }
+        return res;
+}}
